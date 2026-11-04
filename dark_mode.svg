@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" font-family="ConsolasFallback,Consolas,monospace" width="985px" height="530px" font-size="16px">
+<style>
+@font-face {
+src: local('Consolas'), local('Consolas Bold');
+font-family: 'ConsolasFallback';
+font-display: swap;
+-webkit-size-adjust: 109%;
+size-adjust: 109%;
+}
+.key {fill: #ffa657;}
+.value {fill: #a5d6ff;}
+.addColor {fill: #3fb950;}
+.delColor {fill: #f85149;}
+.cc {fill: #616e7f;}
+text, tspan {white-space: pre;}
+</style>
+<rect width="985px" height="530px" fill="#161b22" rx="15"/>
+<text x="15" y="30" fill="#c9d1d9" class="ascii">
+<tspan x="15" y="30">                                      </tspan>
+<tspan x="15" y="50">                                      </tspan>
+<tspan x="15" y="70">             ...                      </tspan>
+<tspan x="15" y="90">            .        ;l.              </tspan>
+<tspan x="15" y="110">            .:&gt;+-]}1tnn}&#x27; .           </tspan>
+<tspan x="15" y="130">           .:)tjcCCJzr/t}^            </tspan>
+<tspan x="15" y="150">            _\)|\uXcf(1(fi            </tspan>
+<tspan x="15" y="170">          `[?xf/fruxxrrnf~_&#x27;          </tspan>
+<tspan x="15" y="190">          .}]xXUzuXvvLJz{?{.          </tspan>
+<tspan x="15" y="210">            I1XXn(/(/zXj&lt;&gt;.           </tspan>
+<tspan x="15" y="230">             ^(xr\ftfxf&lt;              </tspan>
+<tspan x="15" y="250">              ,}\nnur(1.              </tspan>
+<tspan x="15" y="270">             &gt;|njjnuxrjj^             </tspan>
+<tspan x="15" y="290">             ~pvvzXcxYkp&#x27;             </tspan>
+<tspan x="15" y="310">              U*XnvUwW@( .            </tspan>
+<tspan x="15" y="330">              !&amp;Bd}o@8d^              </tspan>
+<tspan x="15" y="350">             . v@J &gt;h8Y .             </tspan>
+<tspan x="15" y="370">             . ;#x.&quot;L@| .             </tspan>
+<tspan x="15" y="390">              . n&lt;^^&lt;*&lt; .             </tspan>
+<tspan x="15" y="410">              . `:;l`(:               </tspan>
+<tspan x="15" y="430">                 &quot;,^`I.               </tspan>
+<tspan x="15" y="450">                 `&gt;;^                 </tspan>
+<tspan x="15" y="470">                  &quot;I`                 </tspan>
+<tspan x="15" y="490">                  .^.                 </tspan>
+<tspan x="15" y="510">                   ..   .             </tspan>
+</text>
+<text x="390" y="30" fill="#c9d1d9">
+<tspan x="390" y="30">oktavian@cachyos</tspan> -————————————————————————————————————————-—-
+<tspan x="390" y="50" class="cc">. </tspan><tspan class="key">OS</tspan>:<tspan class="cc"> ........................ </tspan><tspan class="value">CachyOS Linux, Debian 13, Android</tspan>
+<tspan x="390" y="70" class="cc">. </tspan><tspan class="key">Uptime</tspan>:<tspan class="cc" id="age_data_dots"> ...... </tspan><tspan class="value" id="age_data">6 years, 0 months, 22 days</tspan>
+<tspan x="390" y="90" class="cc">. </tspan><tspan class="key">Host</tspan>:<tspan class="cc"> ...................... </tspan><tspan class="value">State Polytechnic of Malang (Polinema)</tspan>
+<tspan x="390" y="110" class="cc">. </tspan><tspan class="key">Kernel</tspan>:<tspan class="cc"> .................... </tspan><tspan class="value">Full-Stack &amp; Mobile Developer</tspan>
+<tspan x="390" y="130" class="cc">. </tspan><tspan class="key">Shell</tspan>:<tspan class="cc"> ..................... </tspan><tspan class="value">fish 3.7+, bash 5.2</tspan>
+<tspan x="390" y="150" class="cc">. </tspan><tspan class="key">IDE</tspan>:<tspan class="cc"> ....................... </tspan><tspan class="value">VS Code, Vim</tspan>
+<tspan x="390" y="170" class="cc">. </tspan>
+<tspan x="390" y="190" class="cc">. </tspan><tspan class="key">Languages</tspan>.<tspan class="key">Programming</tspan>:<tspan class="cc"> ..... </tspan><tspan class="value">Dart, PHP, Python, TypeScript, JS</tspan>
+<tspan x="390" y="210" class="cc">. </tspan><tspan class="key">Languages</tspan>.<tspan class="key">Frameworks</tspan>:<tspan class="cc"> ....... </tspan><tspan class="value">Flutter, Laravel, Next.js, React</tspan>
+<tspan x="390" y="230" class="cc">. </tspan><tspan class="key">Languages</tspan>.<tspan class="key">Real</tspan>:<tspan class="cc"> ............. </tspan><tspan class="value">Indonesian (Native), English</tspan>
+<tspan x="390" y="250" class="cc">. </tspan>
+<tspan x="390" y="270" class="cc">. </tspan><tspan class="key">Focus</tspan>.<tspan class="key">Mobile</tspan>:<tspan class="cc"> .............. </tspan><tspan class="value">Cross-platform Flutter applications</tspan>
+<tspan x="390" y="290" class="cc">. </tspan><tspan class="key">Focus</tspan>.<tspan class="key">Backend</tspan>:<tspan class="cc"> ............. </tspan><tspan class="value">Laravel APIs, Debian Server bot services</tspan>
+<tspan x="390" y="310" class="cc">. </tspan>
+<tspan x="390" y="330">- Contact</tspan> -——————————————————————————————————————————————-—-
+<tspan x="390" y="350" class="cc">. </tspan><tspan class="key">Email</tspan>.<tspan class="key">Personal</tspan>:<tspan class="cc"> ............. </tspan><tspan class="value">oktavianeka4@gmail.com</tspan>
+<tspan x="390" y="370" class="cc">. </tspan><tspan class="key">LinkedIn</tspan>:<tspan class="cc"> ................... </tspan><tspan class="value">oktavian-eka-ramadhan-834a0a205</tspan>
+<tspan x="390" y="390" class="cc">. </tspan><tspan class="key">GitHub</tspan>:<tspan class="cc"> ..................... </tspan><tspan class="value">Oktavian19</tspan>
+<tspan x="390" y="410" class="cc">. </tspan>
+<tspan x="390" y="430">- GitHub Stats</tspan> -—————————————————————————————————————————-—-
+<tspan x="390" y="450" class="cc">. </tspan><tspan class="key">Repos</tspan>:<tspan class="cc" id="repo_data_dots"> ... </tspan><tspan class="value" id="repo_data">19</tspan> {<tspan class="key">Contributed</tspan>: <tspan class="value" id="contrib_data">20</tspan>} | <tspan class="key">Stars</tspan>:<tspan class="cc" id="star_data_dots"> ............. </tspan><tspan class="value" id="star_data">3</tspan>
+<tspan x="390" y="470" class="cc">. </tspan><tspan class="key">Commits</tspan>:<tspan class="cc" id="commit_data_dots"> ............... </tspan><tspan class="value" id="commit_data">380</tspan> | <tspan class="key">Followers</tspan>:<tspan class="cc" id="follower_data_dots"> ...... </tspan><tspan class="value" id="follower_data">22</tspan>
+<tspan x="390" y="490" class="cc">. </tspan><tspan class="key">Lines of Code</tspan>:<tspan class="cc" id="loc_data_dots">. </tspan><tspan class="value" id="loc_data">45,210</tspan> ( <tspan class="addColor" id="loc_add">52,180</tspan><tspan class="addColor">++</tspan>, <tspan id="loc_del_dots">. </tspan><tspan class="delColor" id="loc_del">6,970</tspan><tspan class="delColor">--</tspan> )
+<tspan x="390" y="510" class="cc">. </tspan>
+</text>
+</svg>
