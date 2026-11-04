@@ -10,6 +10,16 @@ ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN", "")
 # GitHub join date: October 13, 2020
 JOIN_DATE = datetime.datetime(2020, 10, 13)
 
+# ANSI Color codes supported by GitHub markdown ```ansi
+BOLD = "\033[1m"
+RESET = "\033[0m"
+GRAY = "\033[90m"
+YELLOW = "\033[33m"
+CYAN = "\033[36m"
+GREEN = "\033[32m"
+RED = "\033[31m"
+WHITE = "\033[37m"
+
 def format_plural(unit):
     return "s" if unit != 1 else ""
 
@@ -27,27 +37,24 @@ def fetch_github_data():
     if ACCESS_TOKEN:
         headers["authorization"] = f"token {ACCESS_TOKEN}"
 
-    # Default fallback data
     stats = {
         "repos": 19,
         "contrib": 20,
         "stars": 3,
         "commits": 380,
-        "followers": 21,
+        "followers": 22,
         "loc": 45210,
         "loc_add": 52180,
         "loc_del": 6970
     }
 
     try:
-        # Fetch public user info
         u_resp = requests.get(f"https://api.github.com/users/{USER_NAME}", headers=headers, timeout=10)
         if u_resp.status_code == 200:
             u_data = u_resp.json()
             stats["repos"] = u_data.get("public_repos", stats["repos"])
             stats["followers"] = u_data.get("followers", stats["followers"])
 
-        # Fetch public repos for stars count
         r_resp = requests.get(f"https://api.github.com/users/{USER_NAME}/repos?per_page=100", headers=headers, timeout=10)
         if r_resp.status_code == 200:
             repos = r_resp.json()
@@ -56,7 +63,6 @@ def fetch_github_data():
     except Exception as e:
         print(f"[Notice] Using cached metrics: {e}")
 
-    # If GraphQL token available, query full contributions
     if ACCESS_TOKEN:
         try:
             today_str = datetime.datetime.utcnow().isoformat() + "Z"
@@ -88,60 +94,131 @@ def fetch_github_data():
 
     return stats
 
-def update_element(svg_text, element_id, new_val):
-    pattern = re.compile(r'(<tspan[^>]*id=["\']' + element_id + r'["\'][^>]*>)(.*?)(</tspan>)')
-    return pattern.sub(r'\g<1>' + str(new_val) + r'\g<3>', svg_text)
+# ASCII Portrait lines (24 chars wide, 25 lines high)
+ASCII_PORTRAIT = [
+    "                        ",
+    "                        ",
+    "   ..                   ",
+    "        `l' .           ",
+    "  ,<_?})ju{.            ",
+    " `[txUCJvtt-.           ",
+    " :|((jXv/1(\\            ",
+    "l]tf/jnxxjn|+:          ",
+    ":}/UUvzuXLz]{:          ",
+    " `[Xz/\\(rYf<:           ",
+    "  `(ntttrr~             ",
+    "   :1rnut)^             ",
+    "  ;/xfnurrt'            ",
+    "  !mucXvnqw.            ",
+    "   JbnuJk$t .           ",
+    " . _@M|o@#l .           ",
+    "  ..po^?&q` .           ",
+    "  . /q`l#L .            ",
+    "  . i\\`'cu .            ",
+    "     ,;:>_ .            ",
+    "     `:^,\"              ",
+    "     .!;'               ",
+    "      ^;'               ",
+    "      .^.               ",
+    "       .                "
+]
 
-def justify_and_replace(svg_text, element_id, new_text, length=0):
-    if isinstance(new_text, int):
-        formatted_val = f"{new_text:,}"
-    else:
-        formatted_val = str(new_text)
+def dot(n):
+    return f"{GRAY}{'.' * max(1, n)}{RESET}"
 
-    svg_text = update_element(svg_text, element_id, formatted_val)
+def generate_ansi_block(uptime_str, stats):
+    repos = f"{stats['repos']:,}"
+    contrib = f"{stats['contrib']:,}"
+    stars = f"{stats['stars']:,}"
+    commits = f"{stats['commits']:,}"
+    followers = f"{stats['followers']:,}"
+    loc = f"{stats['loc']:,}"
+    loc_add = f"{stats['loc_add']:,}"
+    loc_del = f"{stats['loc_del']:,}"
 
-    if length > 0:
-        just_len = max(0, length - len(formatted_val))
-        if just_len <= 2:
-            dot_map = {0: '', 1: ' ', 2: '. '}
-            dot_string = dot_map[just_len]
-        else:
-            dot_string = ' ' + ('.' * just_len) + ' '
-        svg_text = update_element(svg_text, f"{element_id}_dots", dot_string)
+    # Target column for values: 27 characters (label + dots)
+    # Target column for stats pipe '|': 34 characters
+    d_commit = max(2, 23 - len(commits))
+    d_follower = max(2, 9 - len(followers))
+    d_star = max(2, 13 - len(stars))
+    d_loc = max(2, 9 - len(loc))
 
-    return svg_text
+    right_lines = [
+        f"{BOLD}{WHITE}oktavian@cachyos{RESET} {GRAY}-------------------------------------------------{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}OS{RESET}: {dot(24)} {CYAN}CachyOS Linux, Debian 13, Android{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}Uptime{RESET}: {dot(20)} {CYAN}{uptime_str}{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}Host{RESET}: {dot(22)} {CYAN}State Polytechnic of Malang (Polinema){RESET}",
+        f"{GRAY}.{RESET} {YELLOW}Kernel{RESET}: {dot(20)} {CYAN}Full-Stack & Mobile Developer{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}Shell{RESET}: {dot(21)} {CYAN}fish 3.7+, bash 5.2{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}IDE{RESET}: {dot(23)} {CYAN}VS Code, Vim{RESET}",
+        f"{GRAY}.{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}Languages.Programming{RESET}: {dot(5)} {CYAN}Dart, PHP, Python, TypeScript, JS{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}Languages.Frameworks{RESET}: {dot(6)} {CYAN}Flutter, Laravel, Next.js, React{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}Languages.Real{RESET}: {dot(12)} {CYAN}Indonesian (Native), English{RESET}",
+        f"{GRAY}.{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}Focus.Mobile{RESET}: {dot(14)} {CYAN}Cross-platform Flutter applications{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}Focus.Backend{RESET}: {dot(13)} {CYAN}Laravel APIs, Debian Server bots{RESET}",
+        f"{GRAY}.{RESET}",
+        f"{WHITE}- Contact{RESET} {GRAY}-------------------------------------------------------{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}Email.Personal{RESET}: {dot(12)} {CYAN}oktavianeka4@gmail.com{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}LinkedIn{RESET}: {dot(18)} {CYAN}oktavian-eka-ramadhan-834a0a205{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}GitHub{RESET}: {dot(20)} {CYAN}Oktavian19{RESET}",
+        f"{GRAY}.{RESET}",
+        f"{WHITE}- GitHub Stats{RESET} {GRAY}--------------------------------------------------{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}Repos{RESET}: {dot(4)} {CYAN}{repos}{RESET} {{{YELLOW}Contributed{RESET}: {CYAN}{contrib}{RESET}}}  | {YELLOW}Stars{RESET}: {dot(d_star)} {CYAN}{stars}{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}Commits{RESET}: {dot(d_commit)} {CYAN}{commits}{RESET} | {YELLOW}Followers{RESET}: {dot(d_follower)} {CYAN}{followers}{RESET}",
+        f"{GRAY}.{RESET} {YELLOW}Lines of Code{RESET}: {dot(d_loc)} {CYAN}{loc}{RESET} ( {GREEN}{loc_add}++{RESET}, {RED}{loc_del}--{RESET} )",
+        f"{GRAY}.{RESET}"
+    ]
 
-def update_svg(filepath, uptime_str, stats):
-    with open(filepath, "r", encoding="utf-8") as f:
+    combined = []
+    for l_left, l_right in zip(ASCII_PORTRAIT, right_lines):
+        combined.append(f"{l_left}   {l_right}")
+
+    return "\n".join(combined)
+
+def update_readme(readme_path, ansi_block):
+    if not os.path.exists(readme_path):
+        return
+
+    with open(readme_path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    content = justify_and_replace(content, "age_data", uptime_str, 32)
-    content = justify_and_replace(content, "commit_data", stats["commits"], 18)
-    content = justify_and_replace(content, "star_data", stats["stars"], 14)
-    content = justify_and_replace(content, "repo_data", stats["repos"], 5)
-    content = justify_and_replace(content, "contrib_data", stats["contrib"])
-    content = justify_and_replace(content, "follower_data", stats["followers"], 8)
-    content = justify_and_replace(content, "loc_data", stats["loc"], 8)
-    content = justify_and_replace(content, "loc_add", stats["loc_add"])
-    content = justify_and_replace(content, "loc_del", stats["loc_del"], 7)
+    new_section = f"<!-- START_SECTION:neofetch -->\n```ansi\n{ansi_block}\n```\n<!-- END_SECTION:neofetch -->"
+    
+    if "<!-- START_SECTION:neofetch -->" in content:
+        pattern = re.compile(r"<!-- START_SECTION:neofetch -->.*?<!-- END_SECTION:neofetch -->", re.DOTALL)
+        content = pattern.sub(new_section, content)
+    else:
+        # Default template if markers missing
+        content = f"""<h1 align="center">Hi 👋, I'm Oktavian Eka Ramadhan</h1>
 
-    with open(filepath, "w", encoding="utf-8") as f:
+{new_section}
+
+<p align="center">
+  <a href="https://linkedin.com/in/oktavian-eka-ramadhan-834a0a205">LinkedIn</a> • 
+  <a href="mailto:oktavianeka4@gmail.com">Email</a> • 
+  <a href="https://github.com/Oktavian19">GitHub</a>
+</p>
+"""
+
+    with open(readme_path, "w", encoding="utf-8") as f:
         f.write(content)
+    print("Updated README.md with ANSI terminal block")
 
 def main():
     uptime_str = get_uptime_string()
     stats = fetch_github_data()
 
-    print(f"Updating SVGs for {USER_NAME}...")
+    print(f"Updating profile for {USER_NAME}...")
     print(f"Uptime: {uptime_str}")
     print(f"Stats: {stats}")
 
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    for fname in ["dark_mode.svg", "light_mode.svg"]:
-        fpath = os.path.join(base_dir, fname)
-        if os.path.exists(fpath):
-            update_svg(fpath, uptime_str, stats)
-            print(f"Successfully updated {fname}")
+    readme_path = os.path.join(base_dir, "README.md")
+    
+    ansi_block = generate_ansi_block(uptime_str, stats)
+    update_readme(readme_path, ansi_block)
 
 if __name__ == "__main__":
     main()
